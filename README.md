@@ -1,5 +1,5 @@
 # Fast-Radix-Sort
-A small and fast implementation of radix sort for integers in c++.
+A small and fast implementation of radix sort for integers in c++. Warning Uses C++11 Features!!!
 
 The cpp file provided is a simple c++ implementation of the popular 
 radix sort algorithm, using bit-shifting and bit-masking to speed up 
