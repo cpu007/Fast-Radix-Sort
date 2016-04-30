@@ -74,7 +74,7 @@ void radixSort(int* a, int N){
     bool hasNeg = false;
     while (flag < INT_BIT_SIZE){
         for (int i = 0; i < N; i++) {
-            const int key = ((((a[i] & (MASK << flag)) >> flag)<0) && (hasNeg = true))? //assigns hasNeg to true if and only if first condition is false
+            const int key = ((((a[i] & (MASK << flag)) >> flag)<0) && (hasNeg = true))? //assigns hasNeg to true if and only if first condition is true
                             ((a[i] & (MASK << flag)) >> flag)+MASK : (a[i] & (MASK << flag)) >> flag;
             ++buckets[key];
         }
