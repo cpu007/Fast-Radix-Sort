@@ -68,21 +68,25 @@ void printArray(int* a, int N){
 }
 
 void radixSort(int* a, int N){
-    const int INT_BIT_SIZE = sizeof(int)*8, RADIX = 0x100, MASK = RADIX-1, MASK_BIT_LENGTH = 8;
+    const int INT_BIT_SIZE = sizeof(int)<<3, RADIX = 0x100, MASK = RADIX-1, MASK_BIT_LENGTH = 8;
     int *result = new int[N](), *buckets = new int[RADIX](), *startIndex = new int[RADIX]();
-    int flag = 0;
+    int flag = 0, key = 0;
+	int *temp = nullptr;
     bool hasNeg = false;
     while (flag < INT_BIT_SIZE){
         for (int i = 0; i < N; i++) {
-            const int key = ((((a[i] & (MASK << flag)) >> flag)<0) && (hasNeg = true))? //assigns hasNeg to true if and only if first condition is true
-                            ((a[i] & (MASK << flag)) >> flag)+MASK : (a[i] & (MASK << flag)) >> flag;
+            key = (a[i] & (MASK << flag)) >> flag;
+            if(key < 0){
+                key += MASK;
+                hasNeg = true;
+            }
             ++buckets[key];
         }
         startIndex[0] = 0;
         for (int j = 1; j < RADIX; j++) startIndex[j] = startIndex[j - 1] + buckets[j - 1];
         for (int i = N-1; i >= 0; i--){
-            const int key = (((a[i] & (MASK << flag)) >> flag)>=0)?
-                            (a[i] & (MASK << flag)) >> flag : ((a[i] & (MASK << flag)) >> flag)+MASK;
+            key = (a[i] & (MASK << flag)) >> flag;
+            if(key < 0) key += MASK;
             result[startIndex[key] + --buckets[key]] = a[i];
         }
         memcpy(a,result,N*sizeof(int));
