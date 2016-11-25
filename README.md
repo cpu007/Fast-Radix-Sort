@@ -17,3 +17,4 @@ tested with the same -O2 flag for optimization, and better results were obtained
 and results may vary.
 
 Feel free to use any code in this file as well as modify it in any way. 
+However all credit must be given to the original author: Kenneth Chiguichon.
