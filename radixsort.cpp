@@ -30,40 +30,37 @@ int main()
     cin >> minNum;
     cout << "\nEnter a maximum: ";
     cin >> maxNum;
-	mt19937 seed(time(0));
+    mt19937 seed(time(0));
     int *a = randomIntArray(N,minNum,maxNum,seed);
     clock_t startTime, endTime;
     startTime = clock();
     radixSort(a,N);
     endTime = clock();
     cout <<"Radix Sort took " << (((float) endTime)-((float)startTime)) / CLOCKS_PER_SEC << " second(s)" << endl;
-	cout << "a[0] = " << a[0] << "\na[(N-1)/2] = " << a[(N-1)>>1] <<"\na[N-1] = " << a[N-1] << endl;
-	cout << boolalpha;
+    cout << "a[0] = " << a[0] << "\na[(N-1)/2] = " << a[(N-1)>>1] <<"\na[N-1] = " << a[N-1] << endl;
+    cout << boolalpha;
     cout << "No elements out of place for array \"a\": " << arrayIsSorted(a,N) << endl;
     delete[] a;
     return 0;
 }
 
 bool arrayIsSorted(int* a,int N){
-    for (int i = 0; i < N-1; i++) if (a[i] > a[i + 1]) return false;
+    for (int i = 0; i < N-1; ++i) if (a[i] > a[i + 1]) return false;
     return true;
 }
 
 
 int * randomIntArray(int n, int minNum, int maxNum, mt19937 &seed){
     int* a = new int[n];
-	uniform_int_distribution<int> genRand(minNum,maxNum);
-    for (int i = 0; i<n; i++) a[i] = genRand(seed);
+    uniform_int_distribution<int> genRand(minNum,maxNum);
+    for (int i = 0; i<n; ++i) a[i] = genRand(seed);
     return a;
 }
 
 void printArray(int* a, int N){
     cout << "[";
     int i=0;
-    while(i < N-1){
-        cout << a[i] << ", ";
-        i++;
-    }
+    while(i < N-1) cout << a[i++] << ", ";
     if(i < N) cout << a[i];
     cout << "]";
 }
@@ -74,7 +71,7 @@ void radixSort(int* a, int N){
     int flag = 0, key = 0;
     bool hasNeg = false;
     while (flag < INT_BIT_SIZE){
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; ++i) {
             key = (a[i] & (MASK << flag)) >> flag;
             if(key < 0){
                 key += MASK;
@@ -83,8 +80,8 @@ void radixSort(int* a, int N){
             ++buckets[key];
         }
         startIndex[0] = 0;
-        for (int j = 1; j < RADIX; j++) startIndex[j] = startIndex[j - 1] + buckets[j - 1];
-        for (int i = N-1; i >= 0; i--){
+        for (int j = 1; j < RADIX; ++j) startIndex[j] = startIndex[j - 1] + buckets[j - 1];
+        for (int i = N-1; i >= 0; --i){
             key = (a[i] & (MASK << flag)) >> flag;
             if(key < 0) key += MASK;
             result[startIndex[key] + --buckets[key]] = a[i];
