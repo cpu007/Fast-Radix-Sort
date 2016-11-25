@@ -70,9 +70,8 @@ void printArray(int* a, int N){
 
 void radixSort(int* a, int N){
     const int INT_BIT_SIZE = sizeof(int)<<3, RADIX = 0x100, MASK = RADIX-1, MASK_BIT_LENGTH = 8;
-    int *result = new int[N](), *buckets = new int[RADIX](), *startIndex = new int[RADIX]();
+    int *result = new int[N](), *buckets = new int[RADIX](), *startIndex = new int[RADIX](), *temp = nullptr;
     int flag = 0, key = 0;
-	int *temp = nullptr;
     bool hasNeg = false;
     while (flag < INT_BIT_SIZE){
         for (int i = 0; i < N; i++) {
