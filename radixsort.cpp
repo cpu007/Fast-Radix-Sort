@@ -2,6 +2,7 @@
  * Created by Kenneth Chiguichon.
  * Full details can be found in the readme.txt file, but feel free to share, use, or modify any or all 
  * code found in this file.
+ * However credit must be given to the original author (Kenneth Chiguichon).
  * Note: Must compile with -std=c++11 or higher flag enabled
  */
 #include <iostream>
