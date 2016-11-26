@@ -50,7 +50,7 @@ bool arrayIsSorted(int* a,int N){
 }
 
 
-int * randomIntArray(int n, int minNum, int maxNum, mt19937 &seed){
+int *randomIntArray(int n, int minNum, int maxNum, mt19937 &seed){
     int* a = new int[n];
     uniform_int_distribution<int> genRand(minNum,maxNum);
     for (int i = 0; i<n; ++i) a[i] = genRand(seed);
